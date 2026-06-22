@@ -21,7 +21,7 @@ function SubmitRequest() {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/submit-request", {
+      const res = await axios.post("https://approval-management-system.onrender.com/submit-request", {
         ...formData,
         amount: Number(formData.amount)
       });

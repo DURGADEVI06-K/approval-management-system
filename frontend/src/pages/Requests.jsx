@@ -12,7 +12,7 @@ function Requests() {
   }, []);
 
   const fetchRequests = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/requests");
+    const res = await axios.get("https://approval-management-system.onrender.com/requests");
 
     let filteredRequests = res.data;
 
@@ -33,7 +33,7 @@ function Requests() {
   const updateStatus = async (id, status) => {
     const comment = prompt(`Enter comment for ${status}:`);
 
-    await axios.put(`http://127.0.0.1:8000/requests/${id}/status`, {
+    await axios.put(`https://approval-management-system.onrender.com/requests/${id}/status`, {
   status: status,
   comment: comment || ""
   });

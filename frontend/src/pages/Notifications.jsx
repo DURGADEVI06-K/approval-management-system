@@ -13,7 +13,7 @@ function Notifications() {
   }, []);
 
   const fetchRequests = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/requests");
+    const res = await axios.get("https://approval-management-system.onrender.com/requests");
 
     let filtered = res.data.filter((req) => req.notification);
 

@@ -21,12 +21,12 @@ function App() {
   }, []);
 
   const fetchDashboard = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/dashboard");
+    const res = await axios.get("https://approval-management-system.onrender.com/dashboard");
     setDashboard(res.data);
   };
 
   const fetchRequests = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/requests");
+    const res = await axios.get("https://approval-management-system.onrender.com/requests");
     setRequests(res.data);
   };
 
@@ -39,7 +39,7 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/submit-request", {
+      const res = await axios.post("https://approval-management-system.onrender.com/submit-request", {
         ...formData,
         amount: Number(formData.amount)
       });

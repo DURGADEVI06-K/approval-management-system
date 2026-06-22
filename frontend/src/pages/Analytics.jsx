@@ -22,12 +22,12 @@ function Analytics() {
   }, []);
 
   const fetchDashboard = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/dashboard");
+    const res = await axios.get("https://approval-management-system.onrender.com/dashboard");
     setDashboard(res.data);
   };
 
   const fetchModelInsights = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/model-insights");
+    const res = await axios.get("https://approval-management-system.onrender.com/model-insights");
     setModelInsights(res.data);
   };
 
