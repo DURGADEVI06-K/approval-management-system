@@ -41,7 +41,7 @@ function Dashboard() {
   );
 
   const managerRequests = requests.filter((req) =>
-  req.assigned_approver.includes("Manager")
+    req.assigned_approver?.includes("Manager")
   );
 
   const data =
