@@ -7,12 +7,19 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const users = {
+  const getUsers = () => {
+    const demoUsers = {
       employee: { password: "emp123", role: "employee", employeeName: "Durga" },
       manager: { password: "manager123", role: "manager" },
       admin: { password: "admin123", role: "admin" }
     };
+
+    const savedUsers = JSON.parse(localStorage.getItem("customUsers")) || {};
+    return { ...demoUsers, ...savedUsers };
+  };
+
+  const handleLogin = () => {
+    const users = getUsers();
 
     if (users[username] && users[username].password === password) {
       localStorage.setItem("role", users[username].role);
@@ -24,7 +31,43 @@ function Login() {
 
       navigate("/dashboard");
     } else {
-      alert("Invalid login. Try employee/emp123, manager/manager123, or admin/admin123");
+      alert("Invalid login details.");
+    }
+  };
+
+  const handleCreateAccount = () => {
+    const newUsername = prompt("Enter new employee username:");
+    if (!newUsername) return;
+
+    const newPassword = prompt("Enter password:");
+    if (!newPassword) return;
+
+    const employeeName = prompt("Enter employee name:");
+    if (!employeeName) return;
+
+    const savedUsers = JSON.parse(localStorage.getItem("customUsers")) || {};
+
+    savedUsers[newUsername] = {
+      password: newPassword,
+      role: "employee",
+      employeeName: employeeName
+    };
+
+    localStorage.setItem("customUsers", JSON.stringify(savedUsers));
+
+    alert("Employee account created successfully. You can now login.");
+  };
+
+  const handleForgotPassword = () => {
+    const enteredUsername = prompt("Enter your username:");
+    if (!enteredUsername) return;
+
+    const users = getUsers();
+
+    if (users[enteredUsername]) {
+      alert(`Password for ${enteredUsername}: ${users[enteredUsername].password}`);
+    } else {
+      alert("Username not found.");
     }
   };
 
@@ -56,8 +99,13 @@ function Login() {
         </div>
 
         <div className="login-links">
-          <span>Forgot password?</span>
-          <span>Create account</span>
+          <button type="button" onClick={handleForgotPassword}>
+            Forgot password?
+          </button>
+
+          <button type="button" onClick={handleCreateAccount}>
+            Create account
+          </button>
         </div>
 
         <button onClick={handleLogin}>

@@ -744,3 +744,41 @@ input[type="number"] {
 .login-links span {
   cursor: pointer;
 }
+
+.input-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px;
+  padding: 0 18px;
+}
+
+.input-group svg {
+  position: static !important;
+  flex-shrink: 0;
+}
+
+.input-group input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 8px 0 20px;
+}
+
+.login-links button {
+  background: transparent !important;
+  border: none;
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: none;
+}
