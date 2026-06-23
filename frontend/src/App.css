@@ -593,3 +593,154 @@ input[type="number"] {
   font-size: 13px;
   font-weight: 900;
 }
+
+.compact-header {
+  min-height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.banner-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.banner-stats span {
+  background: rgba(124, 58, 237, 0.1);
+  color: #6d28d9;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dashboard-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(124, 58, 237, 0.15);
+}
+
+.dashboard-lower-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.simple-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 20px;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 35px;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+}
+
+.chart-track {
+  height: 12px;
+  background: #eef2ff;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.chart-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.approved-fill {
+  background: #22c55e;
+}
+
+.pending-fill {
+  background: #f59e0b;
+}
+
+.rejected-fill {
+  background: #ef4444;
+}
+
+.activity-card {
+  max-height: 330px;
+  overflow-y: auto;
+}
+
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activity-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.activity-list p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.activity-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.green-dot {
+  background: #22c55e;
+}
+
+.yellow-dot {
+  background: #f59e0b;
+}
+
+.red-dot {
+  background: #ef4444;
+}
+
+@media (max-width: 900px) {
+  .compact-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-lower-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0 18px;
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.login-links span {
+  cursor: pointer;
+}

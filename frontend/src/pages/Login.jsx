@@ -9,17 +9,19 @@ function Login() {
 
   const handleLogin = () => {
     const users = {
-    employee: { password: "emp123", role: "employee", employeeName: "Durga" },
-    manager: { password: "manager123", role: "manager" },
-    admin: { password: "admin123", role: "admin" }
-  };
+      employee: { password: "emp123", role: "employee", employeeName: "Durga" },
+      manager: { password: "manager123", role: "manager" },
+      admin: { password: "admin123", role: "admin" }
+    };
 
     if (users[username] && users[username].password === password) {
       localStorage.setItem("role", users[username].role);
       localStorage.setItem("username", username);
+
       if (users[username].employeeName) {
         localStorage.setItem("employeeName", users[username].employeeName);
       }
+
       navigate("/dashboard");
     } else {
       alert("Invalid login. Try employee/emp123, manager/manager123, or admin/admin123");
@@ -33,8 +35,8 @@ function Login() {
           <FiShield />
         </div>
 
-        <h1>Welcome Back</h1>
-        <p>Sign in to continue to <strong>ApprovalAI</strong></p>
+        <h1>Welcome to ApprovalAI</h1>
+        <p>Sign in to access your approval workspace.</p>
 
         <div className="input-group">
           <FiUser />
@@ -51,6 +53,11 @@ function Login() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
+        </div>
+
+        <div className="login-links">
+          <span>Forgot password?</span>
+          <span>Create account</span>
         </div>
 
         <button onClick={handleLogin}>

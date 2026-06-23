@@ -7,7 +7,8 @@ import {
   FiXCircle,
   FiTrendingUp,
   FiUsers,
-  FiAlertTriangle
+  FiAlertTriangle,
+  FiActivity
 } from "react-icons/fi";
 
 function Dashboard() {
@@ -63,29 +64,39 @@ function Dashboard() {
       ? "Manager"
       : "Admin";
 
-  const subtitle =
+  const smartMessage =
     role === "employee"
-      ? "Track and manage your own approval requests."
+      ? `You have ${pending} request(s) waiting for approval.`
       : role === "manager"
-      ? "Review and process requests assigned to your approval level."
-      : "Monitor workflows, analytics, approvals and system performance.";
+      ? `You have ${pending} request(s) awaiting your review.`
+      : `${pending} request(s) require attention today.`;
 
   return (
     <>
-      <div className="header">
-        <h2>Welcome back, {welcomeName} 👋</h2>
-        <h1>
-          {role === "employee"
-            ? "Employee Dashboard"
-            : role === "manager"
-            ? "Manager Dashboard"
-            : "Admin Dashboard"}
-        </h1>
-        <p>{subtitle}</p>
+      <div className="header compact-header">
+        <div>
+          <h2>Good Evening, {welcomeName} 👋</h2>
+          <h1>
+            {role === "employee"
+              ? "Employee Dashboard"
+              : role === "manager"
+              ? "Manager Dashboard"
+              : "Admin Dashboard"}
+          </h1>
+          <p>{smartMessage}</p>
+        </div>
+
+        <div className="banner-stats">
+          <span>✅ Approved: {approved}</span>
+          <span>⏳ Pending: {pending}</span>
+          {role === "admin" && (
+            <span>📊 Bottleneck: {dashboard.bottleneck_department}</span>
+          )}
+        </div>
       </div>
 
       <div className="cards">
-        <div className="card kpi-card">
+        <div className="card kpi-card dashboard-card">
           <FiFileText className="card-icon" />
           <h3>
             {role === "employee"
@@ -100,48 +111,117 @@ function Dashboard() {
               ? "Requests submitted by you"
               : role === "manager"
               ? "Requests assigned to you"
-              : "All submitted requests"}
+              : "Across all departments"}
           </span>
         </div>
 
-        <div className="card kpi-card">
+        <div className="card kpi-card dashboard-card">
           <FiCheckCircle className="card-icon success-icon" />
           <h3>Approved</h3>
           <p>{approved}</p>
-          <span>Successfully approved</span>
+          <span>Processed successfully</span>
         </div>
 
-        <div className="card kpi-card">
+        <div className="card kpi-card dashboard-card">
           <FiClock className="card-icon warning-icon" />
           <h3>Pending</h3>
           <p>{pending}</p>
-          <span>Needs attention</span>
+          <span>Awaiting approvals</span>
         </div>
 
-        <div className="card kpi-card">
+        <div className="card kpi-card dashboard-card">
           <FiXCircle className="card-icon danger-icon" />
           <h3>Rejected</h3>
           <p>{rejected}</p>
-          <span>Rejected requests</span>
+          <span>Closed requests</span>
         </div>
 
         {role === "admin" && (
           <>
-            <div className="card kpi-card">
+            <div className="card kpi-card dashboard-card">
               <FiTrendingUp className="card-icon purple-icon" />
               <h3>Avg Delay</h3>
               <p>{dashboard.average_predicted_delay}</p>
-              <span>Predicted days</span>
+              <span>Predicted processing time</span>
             </div>
 
-            <div className="card kpi-card">
+            <div className="card kpi-card dashboard-card">
               <FiAlertTriangle className="card-icon warning-icon" />
               <h3>Bottleneck</h3>
               <p>{dashboard.bottleneck_department}</p>
-              <span>Avg Delay: {dashboard.bottleneck_delay} day(s)</span>
+              <span>Department needing attention</span>
             </div>
           </>
         )}
+      </div>
+
+      <div className="dashboard-lower-grid">
+        <div className="section chart-card">
+          <h2>
+            <FiActivity /> Approval Status Overview
+          </h2>
+
+          <div className="simple-chart">
+            <div className="chart-row">
+              <span>Approved</span>
+              <div className="chart-track">
+                <div
+                  className="chart-fill approved-fill"
+                  style={{ width: `${total ? (approved / total) * 100 : 0}%` }}
+                ></div>
+              </div>
+              <strong>{approved}</strong>
+            </div>
+
+            <div className="chart-row">
+              <span>Pending</span>
+              <div className="chart-track">
+                <div
+                  className="chart-fill pending-fill"
+                  style={{ width: `${total ? (pending / total) * 100 : 0}%` }}
+                ></div>
+              </div>
+              <strong>{pending}</strong>
+            </div>
+
+            <div className="chart-row">
+              <span>Rejected</span>
+              <div className="chart-track">
+                <div
+                  className="chart-fill rejected-fill"
+                  style={{ width: `${total ? (rejected / total) * 100 : 0}%` }}
+                ></div>
+              </div>
+              <strong>{rejected}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="section activity-card">
+          <h2>Recent Activity</h2>
+
+          <ul className="activity-list">
+            {data.slice(-4).reverse().map((req) => (
+              <li key={req.id}>
+                <span
+                  className={
+                    req.status === "Approved"
+                      ? "activity-dot green-dot"
+                      : req.status === "Rejected"
+                      ? "activity-dot red-dot"
+                      : "activity-dot yellow-dot"
+                  }
+                ></span>
+                <div>
+                  <strong>{req.request_type}</strong>
+                  <p>
+                    {req.employee_name} • {req.status}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {role === "manager" && (
